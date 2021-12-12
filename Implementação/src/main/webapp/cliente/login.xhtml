@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+
+<ui:composition template="/templates/_cliente_header.xhtml">
+
+	<ui:param name="titulo" value="Login" />
+
+	<ui:define name="body">
+	<section class="container mt-5">
+	<div class="row justify-content-center ">
+		<div class="col-4">
+			<h:form>
+				<label>Login:</label>
+				<h:inputText value="#{loginBean.cliente.email}" id="email" />
+				<br /> <br /> <label>Senha:</label>
+				<h:inputText value="#{loginBean.cliente.senha.senha}" id="senha" />
+				<br /> <br />
+				<h:commandButton action="#{loginBean.login}" value="login"
+					class="btn btn-pesquisa" />
+			</h:form>
+		</div>
+	</div>
+	<div class="row justify-content-center ">
+		<div class="text-left col-4 px-0 ml-4 pt-3" >
+			<a href="form.xhtml">Não é cadastrado ?</a>
+		</div>
+	</div>
+	</section>
+</ui:define>
+</ui:composition>
+</html>

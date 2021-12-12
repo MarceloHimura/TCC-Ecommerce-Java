@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+	
+<ui:composition template="/templates/_cliente_header.xhtml">
+
+	<ui:param name="titulo" value="Cadastro" />
+
+	<ui:define name="body">
+
+    <div class="container perfil mt-5 sombra-form">
+        <h:form enctype="multipart/form-data">
+			<h4 class="py-4">Dados de Cliente</h4>
+			<div class="border">
+				<div class="row justify-content-center">
+					<div class="col-10">
+						<h:outputLabel value="#{clienteSalvarBean.erros}" style="font-size:25px;color:#ff2400;" id="erros" /> <br />
+						<div class="col-8 pl-0">
+							<div class="form-group">
+								<h:outputLabel value="Nome Completo"/> <br />
+								<h:inputText value="#{clienteSalvarBean.cliente.nome}" required="true" id="nome" name="nome" class="form-control"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Documento"/> <br />
+							<h:selectOneMenu value="#{clienteSalvarBean.documento.tipoDocumento}" required="true" styleClass="form-select" id="documento">
+	                        	<f:selectItems value="#{clienteSalvarBean.documentos}" var="doc" itemLabel="#{doc}" itemValue="#{doc}"/>
+	                        </h:selectOneMenu>
+	                        
+	                        <br />
+	                        <div class="row justify-content-left">
+		                        <div class="col-5 ">
+			                        <h:outputLabel value="Código"/> <br />
+			                        <h:inputText value="#{clienteSalvarBean.documento.codigo}" required="true" class="form-control" id="codigo"
+			                        validatorMessage="Digite só números ">
+										<f:validateRegex pattern="(^[\d\s]+$)" /> 
+        		                    </h:inputText>
+        		                    <h:message for="codigo" style = "color:red;margin:8px;" />
+			                        <c:if test="#{clienteSalvarBean.cpfError}">
+			                        	<span style="color:red;">Cpf Invalido</span>
+			                        </c:if>
+			                     </div>
+		                        
+		                        <div class="col-5 ">
+			                        <h:outputLabel value="Validade"/> <br />
+			                        <h:inputText value="#{clienteSalvarBean.documento.validade}" required="true" class="form-control" id="validade"/>
+		                        </div>
+	                       </div>
+						</div>
+						<div class="row justify-content-left">
+	                        <div class="col-5 ">
+								<div class="form-group">
+									<h:outputLabel value="Data de Nascimento"/> <br />
+									<h:inputText value="#{clienteSalvarBean.cliente.dataNascimento}" required="true" id="dataNascimento" class="form-control"/>
+								</div>
+							</div>
+							<div class="col-3 ">
+								<div class="form-group">
+									<h:outputLabel value="Gênero"/> <br />
+									<h:selectOneMenu value = "#{clienteSalvarBean.cliente.genero}" required="true" id="genero" class="form-control"> 
+							            <f:selectItem itemValue = "Feminino" itemLabel = "Feminino" /> 
+							            <f:selectItem itemValue = "Masculino" itemLabel = "Masculino" /> 
+							         </h:selectOneMenu>  
+								</div>
+							</div>
+						</div>
+						
+						<div class="row justify-content-left">
+	                        <div class="col-5 ">
+								<div class="form-group">
+									<h:outputLabel value="Telefone Celular"/> <br />
+									<h:inputText value="#{clienteSalvarBean.cliente.telefone}" required="true" id="telefone" class="form-control"/>
+								</div>
+							</div>
+
+							<div class="col-5 ">
+								<div class="form-group">
+									<h:outputLabel value="E-mail"/> <br />
+									<h:inputText value="#{clienteSalvarBean.cliente.email}" required="true" id="email" class="form-control">
+										<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+									</h:inputText>
+								</div>
+							</div>
+						</div>
+
+						<div class="row justify-content-left">
+	                        <div class="col-5 ">
+								<div class="form-group">
+									<h:outputLabel value="Senha"/> <br />
+									<h:inputText value="#{clienteSalvarBean.senha.senha}" required="true" id="senha" class="form-control"
+									validatorMessage="Senha tem que ter 8 caracteres e Possuir numeros">
+										<f:validateRegex pattern = "(?=.*[¨°!@#}{,.^?~=+\-_\/*\-+.\|])(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}"/>
+									</h:inputText>
+									<h:message for = "senha" style = "color:red"/>
+								</div>
+							</div>
+							<div class="col-5 ">
+								<div class="form-group">
+									<h:outputLabel value="Confirmar Senha"/> <br />
+									<h:inputText value="#{clienteSalvarBean.senha.confirmaSenha}" required="true" id="confirmaSenha" class="form-control"
+									validatorMessage="Senha tem que ter 8 caracteres e Possuir numeros">
+									<f:validateRegex pattern = "(?=.*[¨°!@#}{,.^?~=+\-_\/*\-+.\|])(?=.*[a-zA-Z])(?=.*[0-9]).{8,13}"/>
+									</h:inputText>
+									<h:message for = "confirmaSenha" style = "color:red"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<h4 class="py-4">Dados de Endereço de Entrega do Cliente</h4>
+			<div class="border">
+				<div class="row justify-content-center">
+					<div class="col-10 py-4">
+						<div class="col-4 px-0">
+							<div class="form-group">
+								<h:outputLabel value="Descrição do Endereço"/> <br />
+								<h:inputText value="#{clienteSalvarBean.endereco.descricao}" required="true" id="Descrição" class="form-control"/>
+							</div>
+						</div>
+						<div class="row justify-content-left">
+	                        <div class="col-4 ">
+								<div class="form-group">
+									<h:outputLabel value="Endereço"/> <br />
+									<h:inputText value="#{clienteSalvarBean.endereco.logradouro}" required="true" id="logradouro" class="form-control"/>
+								</div>
+							</div>
+							<div class="col-4 ">
+								<div class="form-group">
+									<h:outputLabel value="Bairro"/> <br />
+									<h:inputText value="#{clienteSalvarBean.endereco.bairro}" required="true" id="bairro" class="form-control"/>
+								</div>
+							</div>
+							<div class="col-2 ">
+								<div class="form-group">
+									<h:outputLabel value="Número"/> <br />
+									<h:inputText value="#{clienteSalvarBean.endereco.numero}" required="true" id="numero" class="form-control"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-10 px-0">
+							<div class="form-group">
+								<h:outputLabel value="Complemento"/> <br />
+								<h:inputText value="#{clienteSalvarBean.endereco.complemento}"  id="complemento" class="form-control"/>
+							</div>
+						</div>
+						<div class="row justify-content-left">
+	                        <div class="col-4 ">
+								<div class="form-group">
+									<h:outputLabel value="CEP"/> <br />
+									<h:inputText value="#{clienteSalvarBean.endereco.cep}" required="true" id="cep" class="form-control" maxlength="8"
+										validatorMessage="Digite só números ">
+											<f:validateRegex pattern="(^[\d\s]+$)" /> 
+									</h:inputText>
+									<h:message for="cep" style = "color:red;margin:8px;" />
+								</div>
+							</div>
+							<div class="col-4 ">
+								<div class="form-group">
+									<h:outputLabel value="Cidade"/> <br />
+									<h:inputText value="#{clienteSalvarBean.endereco.cidade.cidade}" required="true" id="cidade" class="form-control"/>
+								</div>
+							</div>
+							<div class="col-4 ">
+								<div class="form-group">
+									<h:outputLabel value="Estado"/> <br /> 
+									<h:selectOneMenu value="#{clienteSalvarBean.endereco.cidade.estado.estado}" class="form-select" id="estado">
+			                        	<f:selectItems value="#{clienteSalvarBean.estados}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+			                        </h:selectOneMenu>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="offset-1">
+					<h:selectBooleanCheckbox value = "#{clienteSalvarBean.mesmoEnd}" id = "mesmoEndchk"  onclick="endchk()"/> 
+					<label for="mesmoEndchk">Usar mesmo endereço para cobrança</label>
+				</div>
+			</div>
+			<div id="cobranca">
+				<h4 class="py-4">Dados de Endereço de Cobrança do Cliente</h4>
+				<div class="border">
+					<div class="row justify-content-center">
+						<div class="col-10 py-4">
+							<div class="col-4 px-0">
+								<div class="form-group">
+									<h:outputLabel value="Descrição do Endereço"/> <br />
+									<h:inputText value="#{clienteSalvarBean.enderecoDois.descricao}" required="endchk()" id="DescriçãoDois" class="form-control"/>
+								</div>
+							</div>
+							<div class="row justify-content-left">
+		                        <div class="col-4 ">
+									<div class="form-group">
+										<h:outputLabel value="Endereço"/> <br />
+										<h:inputText value="#{clienteSalvarBean.enderecoDois.logradouro}" required="endchk()" id="logradouroDois" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-4 ">
+									<div class="form-group">
+										<h:outputLabel value="Bairro"/> <br />
+										<h:inputText value="#{clienteSalvarBean.enderecoDois.bairro}" required="endchk()" id="bairroDois" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-2 ">
+									<div class="form-group">
+										<h:outputLabel value="Número"/> <br />
+										<h:inputText value="#{clienteSalvarBean.enderecoDois.numero}" required="endchk()" id="numeroDois" class="form-control"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-10 px-0">
+								<div class="form-group">
+									<h:outputLabel value="Complemento"/> <br />
+									<h:inputText value="#{clienteSalvarBean.enderecoDois.complemento}"  id="complementoDois" class="form-control"/>
+								</div>
+							</div>
+							<div class="row justify-content-left">
+		                        <div class="col-4 ">
+									<div class="form-group">
+										<h:outputLabel value="CEP"/> <br />
+										<h:inputText value="#{clienteSalvarBean.enderecoDois.cep}" required="endchk()"  id="cepDois" class="form-control" maxlength="8"/>
+									<h:message for="cepDois" style = "color:red;margin:8px;" />
+									</div>
+								</div>
+								<div class="col-4 ">
+									<div class="form-group">
+										<h:outputLabel value="Cidade"/> <br />
+										<h:inputText value="#{clienteSalvarBean.enderecoDois.cidade.cidade}" required="endchk()" id="cidadeDois" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-4 ">
+									<div class="form-group">
+										<h:outputLabel value="Estado"/> <br /> 
+										<h:selectOneMenu value="#{clienteSalvarBean.enderecoDois.cidade.estado.estado}" class="form-select">
+				                        	<f:selectItems value="#{clienteSalvarBean.estados}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+				                        </h:selectOneMenu>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h4 class="py-4">Dados do Cartão de Crédito</h4> 
+			<div class="border"> 
+				<div class="row justify-content-center"> 
+					<div class="col-10 py-4"> 
+						<div class="row justify-content-center">
+							<div class="col-6">
+								<div class="form-group"> 
+									<h:outputLabel value="Número do Cartão"/> <br /> 
+									<h:inputText value="#{clienteSalvarBean.cartao.numeroCartao}" required="true" id="numeroCartao" class="form-control"
+									validatorMessage="Digite só números" >
+											<f:validateRegex pattern="(^[\d\s]+$)" />
+									</h:inputText> 
+									<h:message for="numeroCartao" style = "color:red;margin:8px;" />
+								</div> 
+							</div>
+							<div class="col-6">
+								<div class="form-group"> 
+									<h:outputLabel value="Nome Impresso"/> <br /> 
+									<h:inputText value="#{clienteSalvarBean.cartao.nomeImpresso}" required="true" id="nomeImpresso" class="form-control" 
+									validatorMessage="Digite só letras ">
+											<f:validateRegex pattern="(^[[a-zA-Z]\s]+$)" /> 
+									</h:inputText> 
+									<h:message for="nomeImpresso" style = "color:red;margin:8px;" />
+								</div> 
+							</div>
+						</div>
+						<div class="row justify-content-left">
+							<div class="col-4">
+								<div class="form-group"> 
+									<h:outputLabel value="Validade"/> <br /> 
+									<h:inputText value="#{clienteSalvarBean.cartao.validade}" required="true" id="valCard" class="form-control"/> 
+								</div> 
+							</div>
+							<div class="col-4">
+								<div class="form-group"> 
+									<h:outputLabel value="Código de Segurança"/> <br /> 
+									<h:inputText value="#{clienteSalvarBean.cartao.codigoSeguranca}" required="true" id="codigoSec" class="form-control" maxlength="3"
+									validatorMessage="O código e composto so por números">
+											<f:validateRegex pattern="(^[\d\s]+$)" /> 
+									</h:inputText>
+									<h:message for="codigoSec" style = "color:red;margin:8px;" />  
+								</div> 
+							</div>
+							<div class="col-3">
+								<div class="form-group"> 
+			                        <h:outputLabel value="Bandeira do Cartão"/> <br /> 
+			                        <h:selectOneMenu value="#{clienteSalvarBean.cartao.bandeira}" class="form-select" id="bandeira"> 
+			                        	<f:selectItems value="#{clienteSalvarBean.bandeiras}" var="band" itemLabel="#{band}" itemValue="#{band}"/> 
+			                        </h:selectOneMenu> 
+								</div> 
+							</div>
+						</div>
+					</div> 
+				</div> 
+			</div> 
+        	<h:commandButton class="text-black" type="submit" action="#{clienteSalvarBean.salvar}" styleClass="btn btn-pesquisa my-5" value="Cadastrar" id="salvar"/>				
+   		</h:form>
+   	</div>
+   	<script type="text/javascript" src="#{request.contextPath}/assets/js/cliente.js"></script>
+</ui:define>
+</ui:composition>
+
+</html>

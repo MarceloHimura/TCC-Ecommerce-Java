@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet'/>
+    <link href="#{request.contextPath}/assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/assets/css/style.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/assets/css/fontawasome.min.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/021265da4a.js" crossorigin="anonymous"></script>
+    <title>#{titulo}</title>
+</head> 
+
+<body class="">
+	<h:form>
+    <header class="site-header py-1 header">
+        <nav class="container d-flex flex-column flex-md-row justify-content-between mt-2">
+			<a class="d-none d-md-inline-block f-22" href="#{request.contextPath}/index.xhtml" id="home">Livraria</a>
+            <c:if test="#{request.getSession(false).getAttribute('status') == null}">
+	            <a class="py-2 d-none d-md-inline-block btn btn-acesso" href="#{request.contextPath}/cliente/login.xhtml" id="login">Login</a>
+	            <a class="py-2 d-none d-md-inline-block btn btn-acesso" href="#{request.contextPath}/cliente/form.xhtml" id="cadastroNav">Cadastre-se</a>
+            </c:if>
+            
+            <c:if test="#{request.getSession(false).getAttribute('funcao') == 'Admin'}">
+            	<a class="py-2 d-none d-md-inline-block" href="#{request.contextPath}/admin/admin.xhtml" id="admin">Administração</a>
+            </c:if>
+<!--             #{request.getSession(false).getAttribute("cli_nome")} -->
+            <c:if test="#{request.getSession(false).getAttribute('status') != null}">
+            	<a class="py-2 d-none d-md-inline-block" href="#{request.contextPath}/cliente/perfil.xhtml" id="perfil">#{perfilBean.cliente.nome}</a>
+            	<h:form>
+	            	<h:commandButton id="logout" value="Logout" action="#{loginBean.logout}"  class="btn logout"/>            	
+            	</h:form>
+            </c:if>
+            
+            <a class="py-2 d-none d-md-inline-block" href="#{request.contextPath}/carrinho.xhtml" id="carrinho">
+            	<i class="fas fa-shopping-cart mt-auto site-header" style="font-size:30px;"></i>
+            </a>
+		</nav>
+    </header>
+	</h:form>
+		
+	
+
+
+	<div class="container">
+		<ui:insert name="body" />
+	</div>
+</body>
+</html>

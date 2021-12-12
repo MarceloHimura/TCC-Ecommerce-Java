@@ -1,0 +1,331 @@
+body {
+	background-color: floralwhite;
+}
+
+.header {
+	background-color: black;
+	border-bottom: 2px solid orange;
+}
+
+.btn-pesquisa {
+	background-color: orange;
+	color: black;
+	font-weight: bold;
+	border: 3px solid;
+	border-radius: 26px;
+}
+
+.btn-pesquisa:hover {
+	color: inherit;
+	background-color:orange;
+}
+
+
+.titulo-amz{
+	font-size: 28px !important;
+	line-height: 36px !important;
+}
+
+.border-erro{
+	border-color: #ff2400;
+}
+
+i {
+	color: #FF6B0D;
+}
+
+.vazio{
+    margin-top: 3rem;
+    line-height: 2cm;
+    font-style: oblique;
+    text-align: center;
+}
+
+
+.editar-carta {
+	background-color: transparent;
+	color: #0069d9;
+	border: none;
+}
+
+#cartoes tr {
+	display: grid;
+}
+
+.add:hover .sombra {
+	display: block;
+}
+
+.sombra {
+	position: absolute;
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	box-shadow: 10px 10px 202px 78px rgba(43, 43, 43, 0.75) inset;
+	z-index: 27;
+}
+
+.add:hover .carrin-index {
+	display: block !important;
+}
+
+.carrin-index {
+	font-size: 50px;
+	position: absolute;
+	left: 30%;
+	top: 40%;
+	color: #0069d9;
+	display: none;
+	z-index: 98;
+}
+
+.w-25 {
+	width: 25%;
+}
+
+.w-15 {
+	width: 5%;
+}
+
+.sombra-form {
+	box-shadow: 1px 9px 15px rgba(0, 0, 0, 0.75);
+}
+
+.editar-carta:hover {
+	color: #0056b3;
+	cursor: pointer;
+}
+
+.f-18 {
+	font-size: 18px;
+}
+
+.excluir::before {
+	content: '\f068';
+	font-family: "Font Awesome 5 Free";
+}
+
+.voltar-doc {
+	position: absolute;
+	top: 44.8%;
+	left: 27%;
+}
+
+.voltar-doc-edit {
+	position: absolute;
+	top: 42.5%;
+	left: 27%;
+}
+
+.voltar-end {
+	position: absolute;
+	bottom: 16%;
+	left: 27%;
+}
+
+.voltar-card {
+	position: absolute;
+	bottom: 43.5%;;
+	left: 27%;
+}
+
+.voltar-card-edit {
+	position: absolute;
+	bottom: 48.6%;
+	left: 27%;
+}
+
+.voltar-cliente {
+	position: absolute;
+	bottom: 43%;;
+	left: 27%;
+}
+
+.voltar-cli-edit {
+	position: absolute;
+	bottom: 2.6%;
+	left: 10%;
+}
+
+.voltar-senha {
+	position: absolute;
+	bottom: 49%;;
+	left: 27%;
+}
+
+.cursor:hover {
+	cursor: pointer;
+	background-color: #E8810C;
+}
+
+.f-14 {
+	font-size: 14px;
+}
+
+.f-17 {
+	font-size: 17px;
+}
+
+.cifrao {
+	position: relative;
+	top: -.3em;
+	font-size: 11px;
+}
+
+.titulo {
+	font-family: 'Roboto Condensed', sans-serif;
+	color: #348e9d;
+}
+
+.linha-topo {
+	border-top: 2px solid;
+	padding-top: 1rem;
+}
+
+.f-22 {
+	font-size: 22px;
+}
+
+.btn-acesso {
+	border-radius: 26px;
+	padding: 1rem;
+}
+
+.btn-comprar {
+	background: #fba71b;
+	color: black;
+	border-radius: 4px;
+	font-weight: bold;
+}
+
+.btn-comprar:hover{
+	color: inherit;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+.btn-admin {
+	background-color: #2DACF8;
+	color: white;
+}
+
+.w180 {
+	width: 180px !important;
+}
+
+.w180 a {
+	color: inherit;
+}
+
+.radio tr {
+	display: inline-grid;
+}
+
+.bt-0 {
+	bottom: 0;
+}
+
+.w180 a:hover {
+	color: #2DACF8;
+}
+
+.ml-25 {
+	margin-left: 25%;
+}
+
+.ml-17 {
+	margin-left: 17%;
+}
+
+.imgTab {
+	width: 30%;
+	height: 30%;
+}
+
+.admin-header {
+	border-right: 1px solid gray;
+	padding-right: .1rem;
+}
+
+.calendario {
+	position: absolute;
+	bottom: 14%;
+	right: 15%;
+	color: #0069d9 !important
+}
+
+.azul {
+	color: #0069d9 !important
+}
+
+.site-header a {
+	color: #0069d9 !important
+}
+
+.logout {
+	border-radius: 25px;
+	line-height: 1px;
+	border-color: #FF6B0D;
+	background-color: transparent;
+	color: #0069d9;
+}
+
+.logout:hover {
+	color: black;
+	background-color: #FF6B0D;
+	font-weight: bold;
+}
+
+.w-30 {
+	width: 30%;
+}
+
+.w-min {
+	width: min-content;
+}
+
+/*////////////////////// Modal //////////////////////*/
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+	
+<f:metadata>
+	<f:viewAction action="#{perfilBean.carregar(request.getSession(false).getAttribute('cli_id'))}" />
+</f:metadata>	
+	
+<ui:composition template="/templates/_admin_template.xhtml">
+
+	<ui:param name="titulo" value="Admin" />
+
+	<ui:define name="body">
+	<section class="container-fluid mt-3">
+		<div class="row justify-content-center">
+			<div class="col-10 pl-0 mb-3">
+				<h2 class="my-3">Painel Administrativo</h2>
+				<h:form enctype="multipart/form-data" class="mb-3">
+					<div class="row">
+						<div class="col-7">
+							<div class="row">
+								<div class="col-4">
+									<h:outputLabel value="Primeira data" />
+<!-- 									<i class="fas fa-calendar-alt calendario" style="font-size:20px;"></i> -->
+<!-- 									<h:inputText value='#{grafico.min}' id="min" styleClass="form-control" /> -->
+									<input type="date" jsf:value="#{graficoBean.min}" />
+								</div>
+								<div class="col-4">
+									<h:outputLabel value="Segunda data" />
+<!-- 									<i class="fas fa-calendar-alt calendario" style="font-size:20px;"></i> -->
+<!-- 									<h:inputText value='#{grafico.max}' id="max" styleClass="form-control" /> -->
+									<input type="date" jsf:value="#{graficoBean.max}" />
+								</div>
+								<div class="col-3">
+									<div class="">
+										<h:outputLabel for="busca" value="Tipo de filtro"/><br/>
+										<h:selectOneMenu value="#{graficoBean.filtro}" class="form-select position-absolute bt-0">
+											<f:selectItem itemValue="livro" itemLabel="Livro" />
+											<f:selectItem itemValue="categoria" itemLabel="Categoria" />
+										</h:selectOneMenu>
+										<h:selectOneMenu value="#{graficoBean.limitador}" class="ml-3"
+											rendered="false">
+											<f:selectItem itemValue="0" itemLabel="Todos" />
+											<f:selectItem itemValue="5" itemLabel="5" />
+											<f:selectItem itemValue="10" itemLabel="10" />
+										</h:selectOneMenu>
+									</div>
+								</div>
+								<div class="">
+									<h:commandButton value='Filtrar' action='#{graficoBean.setData}' styleClass="btn btn-pesquisa position-absolute bt-0 float-right" style="right:-15%" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</h:form>
+				<div>
+					<h4>Gráfico de Vendas</h4>
+					<canvas id="myChart" jsf:rendered="#{!graficoBean.vazio}"></canvas>
+					<h3 jsf:rendered="#{graficoBean.vazio}" class="vazio">Não existe registros para esse período </h3>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script>
+		const c = #{graficoBean.json};
+		var lista = [];
+	    
+// 	    myFunction(Object.keys(c.label),Object.values(c.label))
+	    myFunction(c.limitador ,Object.keys(c.label),Object.values(c.label));
+	    
+	    function myFunction(limitador, label, data) {
+	    	if(limitador == 0){
+	    		limitador = label.length;
+	    	}
+	    	for (i = 0; i &lt; limitador ; i++){
+	    		var cor = getRandomColor();
+	    		var livros = {"label":label[i], "data":data[i], "backgroundColor":cor ,"borderColor":cor};
+	    		lista.push(livros);
+	    	}
+	    }
+	    
+	    function getRandomColor() {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i &lt; 6; i++ ) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+	    
+	    const labels = c["datas"];
+	    	const data = {
+	    	  labels: labels,
+	    	  datasets: lista
+	    	  
+	    	};
+    	const config = {
+    			  type: 'line',
+    			  data,
+    			  options: { borderColor:'#ff4200',
+	    			  scales: {
+	    		            y: {
+	    		            	suggestedMin: 0,
+	    		                ticks: {
+	    		                    stepSize: 1
+	    		                }
+	    		            }
+	    		        }
+  			  			}
+    			};
+    	var myChart = new Chart(
+    		    document.getElementById('myChart'),
+    		    config
+    		  );
+		</script>
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+
+<ui:composition template="/templates/_cliente_header.xhtml">
+
+	<ui:param name="titulo" value="Altera Cadastro" />
+
+	<ui:define name="body">
+
+    
+	<section class="container perfil mt-5">
+	<div>
+		<h:form enctype="multipart/form-data">
+			<h4 class="py-4">Dados de Cliente</h4>
+			<div class="border">
+				<div class="row justify-content-center">
+					<div class="col-10">
+						<div class="col-8 pl-0">
+							<div class="form-group">
+								<h:outputLabel value="Nome Completo"/> <br />
+								<h:inputText value="#{perfilBean.cliente.nome}" required="true" id="nome" class="form-control"/>
+							</div>
+						</div>
+						<div class="row justify-content-left">
+	                        <div class="col-5 ">
+								<div class="form-group">
+									<h:outputLabel value="Data de Nascimento"/> <br />
+									<h:inputText value="#{perfilBean.cliente.dataNascimento}" required="true" id="dataNascimento" class="form-control"/>
+								</div>
+							</div>
+							<div class="col-3 ">
+								<div class="form-group">
+									<h:outputLabel value="Gênero"/> <br />
+									<h:selectOneMenu value = "#{perfilBean.cliente.genero}" required="true" id="genero" class="form-control"> 
+							            <f:selectItem itemValue = "Feminino" itemLabel = "Feminino" /> 
+							            <f:selectItem itemValue = "Masculino" itemLabel = "Masculino" /> 
+							         </h:selectOneMenu>  
+								</div>
+							</div>
+						</div>
+						
+						<div class="row justify-content-left">
+	                        <div class="col-5 ">
+								<div class="form-group">
+									<h:outputLabel value="Telefone Celular"/> <br />
+									<h:inputText value="#{perfilBean.cliente.telefone}" required="true" id="telefone" class="form-control"/>
+								</div>
+							</div>
+
+							<div class="col-5 ">
+								<div class="form-group">
+									<h:outputLabel value="E-mail"/> <br />
+									<h:inputText value="#{perfilBean.cliente.email}" required="true" id="email" class="form-control">
+										<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+									</h:inputText>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h:commandButton value='Atualizar' id="atualizar" action='#{clienteEditarBean.editarCli(perfilBean.cliente)}' styleClass="btn btn-comprar my-3" />
+			<h:link value = "Voltar" outcome = "/cliente/perfil.xhtml" styleClass="btn btn-comprar my-3 ml-3"/>
+		</h:form>
+		</div>
+	</section>
+</ui:define>
+</ui:composition>
+
+</html>

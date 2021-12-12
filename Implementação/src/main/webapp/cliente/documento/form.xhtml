@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+
+<ui:composition template="/templates/_cliente_header.xhtml">
+
+	<ui:param name="titulo" value="Cadastro de Documento" />
+
+	<ui:define name="body">
+
+    
+    <section class="container perfil mt-5">
+    <div>
+        <h:form enctype="multipart/form-data">
+            <h4 class="py-4 px-0">Dados do Documento</h4>
+				<div class="row justify-content-left">
+					<div class="col-6 p-3 border">
+						<div class="form-group">
+							<h:outputLabel value="Tipo do Documento"/> <br />
+							<h:selectOneMenu value="#{documentoSalvarBean.documento.tipoDocumento}" class="form-select" id="tipo">
+	                        	<f:selectItems value="#{documentoSalvarBean.documentos}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+	                        </h:selectOneMenu>
+	                        
+	                        <br />
+	                        <br />
+	                        <div class="row">
+	                       		<div class="col-4">
+			                        <h:outputLabel value="Código"/> <br />
+			                        <h:inputText value="#{documentoSalvarBean.documento.codigo}" class="form-control" id="codigo" required="true" 
+										validatorMessage="Digite só números ">
+										<f:validateRegex pattern="(^[\d\s]+$)" /> 
+        		                    </h:inputText>
+        		                    <h:message for="codigo" style = "color:red;margin:8px;" />
+			                        <c:if test="#{documentoSalvarBean.cpfError}"> 
+			                        	<span style="color:red;">Cpf Invalido</span>
+			                        </c:if>
+		                        </div>
+		                        <div class="col-4">
+			                        <h:outputLabel value="Validade"/> <br />
+			                        <input type="date" class="form-control" id="validade" jsf:value="#{documentoSalvarBean.data}"/>
+			                    </div>
+	                         </div>
+						</div>
+					</div>
+				</div>
+	       <h:commandButton class="text-black" type="submit"  action="#{documentoSalvarBean.salvarDocumento(perfilBean.cliente)}" styleClass="btn btn-comprar my-5" value="Cadastrar" id="cadastrarDoc"/>
+	       <h:link value = "Voltar" outcome = "/cliente/perfil.xhtml" styleClass="btn btn-comprar my-3 ml-3"/>
+        </h:form>
+    </div>
+    </section>
+
+
+</ui:define>
+</ui:composition>
+
+</html>

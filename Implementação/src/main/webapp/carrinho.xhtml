@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+	
+<ui:composition template="/templates/_cliente_header.xhtml">
+
+	<ui:param name="titulo" value="Carrinho" />
+
+	<ui:define name="body">
+    
+	<section class="infoSection container mt-4">
+	<h2 class="infoSection-titulo">Seu carrinho</h2>
+
+	<h:form >
+		<table class="formularioDoCarrinho-tabela">
+				<h:dataTable var="item" value="#{carrinhoBean.itens}"
+				class="table table-bordered table-striped table-hover">
+				<h:column styleClass="w-30">
+					<f:facet name="header">Item</f:facet>
+					<img src="#{request.contextPath}/assets/img/#{item.livro.imagemPath}"
+						width="40%" alt="#{livro.nome}" />
+	        	</h:column>
+	        	
+	        	<h:column>
+					<f:facet name="header">Nome</f:facet>
+	        	 	#{item.livro.nomeTela}
+	        	</h:column>
+	        	
+	        	<h:column> 
+					<f:facet name="header">Preço</f:facet>
+	        	 	R$#{item.livro.preco}
+	        	</h:column>
+	        	
+	        	<h:column>
+					<f:facet name="header">Quantidade</f:facet>
+	        	 <h:selectOneMenu  value="#{item.quantidade}">
+	        		 <f:selectItems	value="#{item.estoqueMax()}" var="Quantidade" itemValue="#{Quantidade}" itemLabel="#{Quantidade}" />
+	        	 </h:selectOneMenu >
+	        	</h:column>
+	        	
+<!-- 	        	<h:column> -->
+<!-- 					<f:facet name="header">Total</f:facet> -->
+<!-- 	        	 	R$#{carrinho.getTotal(item)} -->
+<!-- 	        	</h:column> -->
+	        	
+	        	<h:column class="formularioDoCarrinho-item">
+	        			<a
+							jsf:action="#{carrinhoBean.remover(item)}"> 
+							<i class="fas fa-times-circle"></i>
+						</a>
+				</h:column>
+				</h:dataTable>
+			<tfoot class="formularioDoCarrinho-rodape">
+				<tr>
+					<td	class="formularioDoCarrinho-rodape-item formularioDoCarrinho-finalizar"
+						colspan="3">
+						<button id="finalizar" jsf:rendered="#{carrinho.getQuantidadeTotal() > 0}" class="formularioDoCarrinho-finalizar-botao btn btn-pesquisa" type="submit" jsf:action="#{carrinhoBean.redirCheckout(carrinho.itens, request.getSession(false).getAttribute('status'))}">
+							Finalizar compra
+						</button>
+					</td>
+<!-- 					<h:outputLabel class="font-weight-bold" value="Total"/>&nbsp;&nbsp; -->
+<!-- 					<td class="formularioDoCarrinho-rodape-item btn ">R$#{carrinho.getTotal()}</td> -->
+				</tr>
+				
+				
+			</tfoot>
+			
+		</table>
+		
+	</h:form>
+
+	</section>
+</ui:define>
+</ui:composition>
+</html>

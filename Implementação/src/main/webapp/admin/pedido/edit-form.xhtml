@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+	
+<f:metadata>
+	<f:viewParam id="id" name="id" value="#{pedidoEditarBean.id}" />
+	<f:viewAction action="#{pedidoEditarBean.carregar()}" />
+</f:metadata> 
+	
+<ui:composition template="/templates/_admin_template.xhtml">
+
+	<ui:param name="titulo" value="Detalhe do Pedido" />
+
+	<ui:define name="body">
+	<section class="container-fluid mt-5">
+		<div class="row justify-content-start">
+			<div class="col-5">
+				<h2 class='my-5'>Pedido</h2>
+				<br />
+				<h:form enctype="multipart/form-data">
+				<div class="row">
+					<div class="form-group col-6">
+						<span class="font-weight-bold">Código do Pedido: </span><br />
+						<h:outputLabel value="#{pedidoEditarBean.ped.id}" />
+					</div>
+					<div class="form-group col-6">
+						<span class="font-weight-bold">Nome do Cliente: </span><br />
+						<h:outputLabel value="#{pedidoEditarBean.ped.cliente.nome}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-6">
+						<span class="font-weight-bold">Endereço do Cliente: </span><br />
+						<h:outputLabel value="Estado: #{pedidoEditarBean.ped.endereco.cidade.estado.estado} " /><br />
+					 	<h:outputLabel value="Cidade: #{pedidoEditarBean.ped.endereco.cidade.cidade}"/><br />
+					 	<h:outputLabel value="Rua: #{pedidoEditarBean.ped.endereco.logradouro}"/><br />
+					</div>
+					
+					<div class="form-group col-6">
+						<span class="font-weight-bold">Total: </span><br />
+						<h:outputLabel value="R$ #{pedidoEditarBean.ped.total}" />
+					</div>
+				</div>
+					<div class="form-group col-9 px-0">
+						<span class="font-weight-bold">Status do Pedido: </span><br />
+						<h:selectOneMenu value="#{pedidoEditarBean.ped.statusPedido}" styleClass="form-select" >
+	                    	<f:selectItems value="#{pedidoEditarBean.statusPedido}" var="tipo" itemLabel="#{tipo.toString().replace('_', ' ')}" itemValue="#{tipo}"/> 
+	                    </h:selectOneMenu>	
+					</div>
+					<h:commandButton value='Atualizar' action='#{pedidoEditarBean.editar}' styleClass="btn btn-comprar my-3" />
+				</h:form>
+			</div>
+		</div>
+	</section>
+
+</ui:define>
+
+<script src="#{request.contextPath}/assets/js/bootstrap.min.js"></script>
+</ui:composition>
+</html>

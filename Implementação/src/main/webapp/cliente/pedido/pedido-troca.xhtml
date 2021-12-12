@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	
+<f:metadata>
+	<f:viewParam id="id" name="id" value="#{pedidoBean.id}" />
+	<f:viewAction action="#{pedidoBean.carregar()}" />
+	<f:viewAction action="#{pedidoBean.prdpedido()}" />
+</f:metadata>
+
+<ui:composition template="/templates/_cliente_header.xhtml">
+
+	<ui:param name="titulo" value="Troca do Produtos" />
+
+	<ui:define name="body">
+
+	<section class="container perfil mx-5">
+		<div class="row">
+			<div class="col-10">
+				<h2>Informações do Pedidos</h2>
+				<br />
+				<p>Selecione a quantidade de cada item que deseja trocar.</p>
+				<h:form enctype="multipart/form-data">
+					<div class="form-group">
+						<h4>Código de Pedido:</h4>
+						<h:outputLabel value="#{pedidoBean.ped.id}" />
+					</div>
+					<div class="row">
+						<div class="col-8 p-0">
+							<h4>Produtos do Pedido:</h4>
+							
+							<ui:repeat value="#{pedidoBean.prdpedido}" var="itens">
+								<img class="carta-imagem"
+									src="#{request.contextPath}/assets/img/#{itens.livro.imagemPath}"
+									alt="#{itens.livro.nomeTela}" title="#{itens.livro.nome}" width="20%" />
+								<span class="mx-3">- #{itens.livro.nomeTela}</span> 
+								<h:selectOneMenu  value="#{itens.quantidade}" id="qtdeItem">       
+									<f:selectItem	value="#{null}"  itemLabel="Nenhum"/>	 
+				        		 	<f:selectItems	value="#{pedidoBean.estoqueMax(itens.quantidade)}" var="Quantidade" itemValue="#{Quantidade}" itemLabel="#{Quantidade}"/>
+					        	 </h:selectOneMenu >
+								<p></p>
+							</ui:repeat>
+						</div>			
+						<div class="col-4">
+							<h:outputText value="Motivo:"/><br></br>
+							<h:inputTextarea id="motivo" row = "10" col = "10" value = "#{pedidoBean.motivo}" class="form-control" />
+						</div>	
+					</div>	
+					<div>
+						<h:commandButton value = "Confirmar Pedido de troca" action="#{pedidoBean.trocaPedido}"   outcome = "" styleClass="btn btn-pesquisa mt-3"/>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</section>
+
+
+
+</ui:define>
+</ui:composition>
+
+</html>

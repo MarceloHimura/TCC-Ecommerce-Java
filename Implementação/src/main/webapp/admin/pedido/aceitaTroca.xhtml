@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<f:metadata>
+	<f:viewParam id="id" name="id" value="#{pedidoEditarBean.id}" />
+	<f:viewAction action="#{pedidoEditarBean.carregar()}" /> 
+	<f:viewAction action="#{pedidoEditarBean.carregarTroca}" /> 
+</f:metadata>
+
+
+<ui:composition template="/templates/_admin_template.xhtml">
+
+	<ui:param name="titulo" value="Aceita Troca" />
+
+	<ui:define name="body">
+	<section class="container-fluid mt-5">
+		<div class="row">
+			<div class="col-8">
+				<h2 class=''>Pedido</h2>
+				<br />
+				<h:form enctype="multipart/form-data">
+					<div class="form-group">
+						<h4>Código do Pedido:</h4>
+						<h:outputLabel value=" #{pedidoEditarBean.ped.id}" />
+					</div>
+					<div class="form-group">
+						<h4>Motivo da Troca: </h4>
+						<h:outputLabel value="#{pedidoEditarBean.pedTroca[0].motivo}"/>
+					</div>
+					<h:dataTable var="itens" value="#{pedidoEditarBean.pedTroca}" class="table">
+						<h:column class="w-25">
+							<f:facet name="header">Item</f:facet>
+							<img class="carta-imagem"
+									src="#{request.contextPath}/assets/img/#{itens.imagemPath}"
+									width="20%"/>
+						</h:column>
+						<h:column styleClass="w-25" >
+							<f:facet name="header" >Quantidade</f:facet>
+								<h4 >#{(itens.quantidade==null)?0:itens.quantidade}</h4> 
+						</h:column>
+<!-- 						<h:column class="w-25"> -->
+<!-- 							<f:facet name="header" >Motivo</f:facet> -->
+<!-- 							#{(itens.quantidade==null)?'':itens.motivo} -->
+<!-- 						</h:column> -->
+					</h:dataTable>
+					<h:inputHidden id="devolve" value="#{pedidoEditarBean.devolve}" />
+					<button id="myBtn" type="button" class="btn btn-pesquisa my-3 mr-3">Aceitar</button>
+					<h:commandButton id='negar' action='#{pedidoEditarBean.editarTrocaNegada}' value="Negar" styleClass="btn btn-pesquisa my-3 mr-3" />
+					<h:commandButton id="aceitar" action='#{pedidoEditarBean.editarTrocaAceita}' styleClass="d-none" />
+				</h:form>
+			</div>
+		</div>
+
+	</section>
+	
+	<div id="myModal" class="modal row justify-content-center">
+
+	  <!-- Modal content -->
+	  <div class="col-4" style="margin-left: 35%;top: 35%;"> 
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    <div class="col-12 text-center">
+		    	<p>Retorna itens para estoque ?</p>
+		    	<button type="button" id="modalSim" class="btn btn-pesquisa" style="width: 20%;" onclick="devolve(true)">Sim</button>
+		    	<button type="button" id="modalNao" class="btn btn-pesquisa" style="width: 20%;" onclick="devolve(false)">Não</button>
+		    </div>
+		  </div>
+	 </div>
+	
+	</div>
+
+<script src="#{request.contextPath}/assets/js/bootstrap.min.js"></script>
+<script src="#{request.contextPath}/assets/js/retorna_estoque.js"></script>
+
+</ui:define>
+
+</ui:composition>
+</html>
